@@ -17,11 +17,13 @@ object RddApp extends App{
 
   val sc = spark.sparkContext
 
+
+
   //Load the data
-  val rddPrimerVuelta = sc.textFile("E:\\data_taller\\Resultados_1ra_vuelta_Version_PCM.csv")
+  val rddPrimerVuelta = sc.textFile("src/main/resources/Resultados_1ra_vuelta_Version_PCM.csv")
     .map(ResultadoActa.convertToResultadoActaVuelta2(_,Vuelta.PRIMERA))
     .cache()
-  val rddSegundaVuelta = sc.textFile("E:\\data_taller\\Resultados_2da_vuelta_Version_PCM.csv")
+  val rddSegundaVuelta = sc.textFile("src/main/resources/Resultados_2da_vuelta_Version_PCM.csv")
     .map(ResultadoActa.convertToResultadoActaVuelta2(_,Vuelta.SEGUNDA))
     .cache()
 
