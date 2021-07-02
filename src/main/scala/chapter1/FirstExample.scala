@@ -5,7 +5,7 @@ import org.apache.tika.parser.txt.CharsetDetector
 
 object FirstExample extends App{
 
-  System.setProperty("hadoop.home.dir", "E:\\hadoop")
+  //System.setProperty("hadoop.home.dir", "E:\\hadoop")
   val spark = SparkSession
     .builder
     .appName("Example-3_7")
@@ -42,4 +42,3 @@ object FirstExample extends App{
 }
 
 case class Person(name:String, age:Int)
-
