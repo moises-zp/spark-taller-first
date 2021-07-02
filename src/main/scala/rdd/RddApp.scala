@@ -8,7 +8,7 @@ import org.apache.log4j.Level
 object RddApp extends App{
   Logger.getLogger("org").setLevel(Level.OFF)
   Logger.getLogger("akka").setLevel(Level.OFF)
-  System.setProperty("hadoop.home.dir", "E:\\hadoop")
+  //System.setProperty("hadoop.home.dir", "E:\\hadoop")
   val spark = SparkSession
     .builder
     .appName("Example-3_7")
