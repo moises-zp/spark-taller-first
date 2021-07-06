@@ -14,6 +14,7 @@ object FirstExample extends App{
 
   println(spark.sparkContext.appName)
 
+  ////// inicio Preparar data
   val random = new scala.util.Random
 
   val names = "Moisés"::"Ada"::"Luis"::"María"::"Pilar"::"Jua"::Nil
@@ -24,6 +25,7 @@ object FirstExample extends App{
   def getPersons(nroOfPerson:Int) = for(i <- Range(0,nroOfPerson)) yield
     Person(names(random.nextInt(namesLength)), minAge + random.nextInt((maxAge - minAge + 1)))
 
+  ////// fin Preparar data
 
   val teams = getPersons(100)
   val teamsRdd = spark.sparkContext.parallelize(teams)

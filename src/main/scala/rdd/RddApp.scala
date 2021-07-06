@@ -6,6 +6,7 @@ import org.apache.log4j.Logger
 import org.apache.log4j.Level
 
 object RddApp extends App{
+
   Logger.getLogger("org").setLevel(Level.OFF)
   Logger.getLogger("akka").setLevel(Level.OFF)
   //System.setProperty("hadoop.home.dir", "E:\\hadoop")
@@ -23,11 +24,12 @@ object RddApp extends App{
   val rddPrimerVuelta = sc.textFile("src/main/resources/Resultados_1ra_vuelta_Version_PCM.csv")
     .map(ResultadoActa.convertToResultadoActaVuelta2(_,Vuelta.PRIMERA))
     .cache()
+
   val rddSegundaVuelta = sc.textFile("src/main/resources/Resultados_2da_vuelta_Version_PCM.csv")
     .map(ResultadoActa.convertToResultadoActaVuelta2(_,Vuelta.SEGUNDA))
     .cache()
 
-
+/*
   rddSegundaVuelta
     .take(20)
     .foreach(println(_))
@@ -35,6 +37,7 @@ object RddApp extends App{
   rddPrimerVuelta
     .take(20)
     .foreach(println(_))
+  */
 
   // Encontrar las mesas en las que un partido politico obtuvo cero votos en la segunda vuelta cuando en la primera obtuvo uno o mas votos
   val fuerzaPupular1 = encontrarMesaPrimeraVueltaNo0YSegundaVuelta0(rddPrimerVuelta,rddSegundaVuelta,_.partidoFuerzaPopular>0,_.partidoFuerzaPopular==0)
@@ -63,11 +66,16 @@ object RddApp extends App{
                                                     ,filtroPrimeraVuelta: ResultadoActa => Boolean
                                                     ,filtroSegundaVuelta: ResultadoActa => Boolean) = {
 
-    val t = (rdd:RDD[ResultadoActa],filtro: ResultadoActa => Boolean ) => rdd.filter(filtro).map(_.mesaVotacion)
+    val t = (rdd:RDD[ResultadoActa],filtro: ResultadoActa => Boolean )=>
+      rdd //ResultadoActa
+      .filter(filtro) // <- filtro
+        .map(_.mesaVotacion)
 
-    val mesasVotos0SegundaVueltaK =  t(rddSegundaVuelta,filtroSegundaVuelta)
-    val mesasVotosNo0PrimeraVueltaK = t(rddPrimerVuelta,filtroPrimeraVuelta)
 
-    mesasVotos0SegundaVueltaK.intersection(mesasVotosNo0PrimeraVueltaK)
+    val mesasVotos0SegundaVueltaK: RDD[String] =  t(rddSegundaVuelta,filtroSegundaVuelta)
+    val mesasVotosNo0PrimeraVueltaK: RDD[String] = t(rddPrimerVuelta,filtroPrimeraVuelta)
+
+    mesasVotos0SegundaVueltaK
+      .intersection(mesasVotosNo0PrimeraVueltaK) //RDD[String]
   }
 }

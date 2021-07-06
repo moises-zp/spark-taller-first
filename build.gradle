@@ -33,6 +33,10 @@ dependencies {
 // https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
     implementation group: 'org.apache.tika', name: 'tika-parsers', version: '1.26'
 
+    // https://mvnrepository.com/artifact/com.github.jnr/jnr-posix
+    implementation group: 'com.github.jnr', name: 'jnr-posix', version: '3.1.7'
+
+
 }
 
 test {

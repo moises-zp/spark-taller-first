@@ -19,7 +19,7 @@ object RddPairExample extends App {
   // Create data
   val random = new scala.util.Random
 
-  val names = "Moises"::"Ada"::"Luis"::"Maria"::"Pilar"::"Juan"::Nil
+  val names = "Moises"::"Ada"::"Luis"::"Maria"::"Pilar"::"Juan"::Nil //(Moises, Pilar) --> ||| -2
   val namesLength = names.length
   val minAge = 25
   val maxAge = 60
@@ -30,7 +30,7 @@ object RddPairExample extends App {
   var persons = getPersons(1000)
   val personsRdd = sc.parallelize(persons)
 
-  personsRdd
+  personsRdd // RDD[Person]
     .groupBy(_.age)
     .map((f: (Int,Iterable[Person]))=> (f._1,f._2.size))
     .sortBy(f=> f._1)
