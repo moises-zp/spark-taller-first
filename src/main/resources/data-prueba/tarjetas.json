@@ -1,0 +1,7 @@
+{"card_number":"0006000032132132","contracts":["50001V"],"document_number":"99887765","document_type":"DNI","pabe_user_id":null,"status":"ENABLED"}   
+{"card_number":"9999999999999999","contracts":["690071"],"document_number":"123456789","document_type":"PAS","pabe_user_id":null,"status":"ENABLED"}  
+{"card_number":"8888888888888888","contracts":["690071"],"document_number":"123456789","document_type":"PAS","pabe_user_id":null,"status":"ENABLED"}  
+{"card_number":"1111111111111111","contracts":["690071"],"document_number":"78654321","document_type":"PAS","pabe_user_id":null,"status":"ENABLED"}   
+{"card_number":"0006000056415616","contracts":["50001V"],"document_number":"AS123123123","document_type":"CE","pabe_user_id":1,"status":"ENABLED"}    
+{"card_number":"2222222222222222","contracts":["50001V","690071"],"document_number":"88888888","document_type":"CE","pabe_user_id":4193,"status":null}
+{"card_number":"0006000051616156","contracts":["50001V"],"document_number":"55615613131","document_type":"PAS","pabe_user_id":0,"status":"ENABLED"}   
