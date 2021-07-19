@@ -25,19 +25,17 @@ object EjemplosQuery extends App{
     .getOrCreate()
 
   val dfUserCassandra =
-    spark.read
-      .format("org.apache.spark.sql.cassandra")
-      .options(Map("table" -> "user", "keyspace" -> principalKeySpace)).load()
+  spark.read.json("src/main/resources/data-prueba/users.json")
 
   val dfContratosCassandra =
-    spark.read
-      .format("org.apache.spark.sql.cassandra")
-      .options(Map("table" -> "contract", "keyspace" -> principalKeySpace)).load()
+    spark.read.json("src/main/resources/data-prueba/contratos.json")
 
   val dfCardCassandra =
-    spark.read
-      .format("org.apache.spark.sql.cassandra")
-      .options(Map("table" -> "card", "keyspace" -> principalKeySpace)).load()
+    spark.read.json("src/main/resources/data-prueba/tarjetas.json")
+
+  dfUserCassandra.printSchema()
+  dfContratosCassandra.printSchema()
+  dfCardCassandra.printSchema()
 
 
   import spark.implicits._
@@ -48,7 +46,30 @@ object EjemplosQuery extends App{
     .map(_.json)
     .show(100, false)
 
-  val json = spark.read.json("src/main/resources/users.json")
+  val json = spark.read.json("src/main/resources/data-prueba/users.json")
   json.show(5,false)
 
+  //Cuáles son los contratos en los que no hay usuarios de seguridad
+
+  /*
+  Mostra un reporte en los que se muestren los contratos, las empresas y los usuarios que pueden ingresa
+  La salida deberá tener el siguiente formto:
+  contrato:String
+  nombre_empresa[tipo documento, nroDocumento]:String
+  nombre_usuario
+  Ejm:
+  contrato | empresa | usuario
+  102030  | Luz del Sur[RUC, 2010405612] | Moisés Zapata [DNI, 59013522]
+  102030  | Luz del Sur[RUC, 2010405612] | Edson Sánchez [CE, 2010]
+   */
+
+  /*
+  Cuáles son los usuarios que no tienen una tarjeta asignada pero que sin embargo están configurados en un contratp
+  Mostrar la siguiente salida:
+  contrato <- String
+  nombre_usuario <- String
+
+   */
+
 }
+
